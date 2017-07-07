@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "TankAimingComponent.h"
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
@@ -14,11 +15,18 @@ public:
 	// Sets default values for this pawn's properties
 	ATank();
 
-	void AimAt(FVector);
-
-protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	//Returns the position the tank is aiming at
+	void AimAt(FVector);
+
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
+
+protected:
+
+	UTankAimingComponent* TankAimingComponent = nullptr;
 
 private:	
 	// Called every frame
