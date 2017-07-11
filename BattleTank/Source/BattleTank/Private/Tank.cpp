@@ -39,7 +39,14 @@ void ATank::AimAt(FVector HitLocation)
 	TankAimingComponent->AimingAt(HitLocation, LaunchSpeed);
 }
 
+//Blueprint callable method to set the tank's barrel
 void ATank::SetBarrelReference(UTankBarrel * BarrelToSet)
 {
 	TankAimingComponent->SetBarrelReference(BarrelToSet);
+}
+
+//Blueprint callable method to set the tank's turret
+void ATank::SetTurretReference(UTankTurret * TurretToSet)
+{
+	TankAimingComponent->SetTurretReference(TurretToSet);
 }
