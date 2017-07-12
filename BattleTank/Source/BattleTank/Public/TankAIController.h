@@ -18,14 +18,5 @@ private:
 	virtual void BeginPlay() override;
 
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	//Returns the tank possesed by this AIPlayerController
-	ATank* GetControlledTank() const;
-
-	//Returns the tank possesed by PlayerController
-	ATank* GetPlayerTank() const;
-
-	
-	
+	virtual void Tick(float DeltaTime) override;	
 };
