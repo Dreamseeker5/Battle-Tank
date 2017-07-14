@@ -5,9 +5,6 @@
 
 void UTankTrack::SetThrottle(float Throttle)
 {
-	auto Name = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s throttle: %f"), *Name, Throttle);
-
 	//Force vector that'll be applied to the tank
 	auto ForceApplied = GetForwardVector() * Throttle * TrackMaxDrivingForce;
 	//The location where the force is going to be applied (track's edges)
