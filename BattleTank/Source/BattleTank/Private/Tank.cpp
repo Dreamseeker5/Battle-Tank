@@ -15,10 +15,6 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 
 	//No need to protect pointers in the constructor
-
-	//Neccesary to create a component which appears in the blueprint component list
-	//This component will get all the actions delegated from the tank
-	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
 }
 
 // Called when the game starts or when spawned
@@ -28,13 +24,6 @@ void ATank::BeginPlay()
 	
 }
 
-// Called to bind functionality to input
-void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
-
 
 
 void ATank::AimAt(FVector HitLocation)
@@ -42,20 +31,6 @@ void ATank::AimAt(FVector HitLocation)
 	TankAimingComponent->AimingAt(HitLocation, LaunchSpeed);
 }
 
-//Blueprint callable method to set the tank's barrel
-void ATank::SetBarrelReference(UTankBarrel * BarrelToSet)
-{
-	TankAimingComponent->SetBarrelReference(BarrelToSet);
-	Barrel = BarrelToSet;
-}
-
-//Blueprint callable method to set the tank's turret
-void ATank::SetTurretReference(UTankTurret * TurretToSet)
-{
-	TankAimingComponent->SetTurretReference(TurretToSet);
-}
-
-//
 void ATank::Fire()
 {
 	//A timer to make the tank able to shoot at a minimun rate
