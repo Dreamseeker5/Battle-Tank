@@ -27,9 +27,6 @@ private:
 	float LineTraceRange = 1000000;
 
 
-	//Returns the tank possesed by the PlayerController
-	ATank* GetControlledTank() const;
-
 	//Guides the point which the tank's turret has to aim
 	void AimTowardsCrosshair();
 
@@ -40,4 +37,9 @@ private:
 	bool GetLookDirection(FVector2D, FVector&) const;
 
 	bool GetLookVectorHitLocation(FVector, FVector&) const;
+
+protected:
+	//Returns the tank possesed by the PlayerController
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	ATank* GetControlledTank() const;
 };

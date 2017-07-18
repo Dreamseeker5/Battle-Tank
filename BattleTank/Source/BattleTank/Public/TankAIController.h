@@ -18,5 +18,8 @@ private:
 	virtual void BeginPlay() override;
 
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;	
+	virtual void Tick(float DeltaTime) override;
+
+	//How close the AI tank can get
+	float AcceptanceRadius = 3000;
 };
