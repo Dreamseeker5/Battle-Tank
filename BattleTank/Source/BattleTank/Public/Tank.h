@@ -9,7 +9,6 @@
 class UTankBarrel;
 class UTankAimingComponent;
 class AProjectile;
-class UTankMovementComponent;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -34,10 +33,6 @@ protected:
 	//Use as a reference to initialise the turret and barrel in the class BP
 	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
-
-	//Use as a reference to initialise the tracks in the class BP
-	UPROPERTY(BlueprintReadOnly)
-	UTankMovementComponent* TankMovementComponent = nullptr;
 
 private:	
 

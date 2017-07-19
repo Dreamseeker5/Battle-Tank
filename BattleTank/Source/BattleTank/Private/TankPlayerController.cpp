@@ -13,7 +13,7 @@ void ATankPlayerController::BeginPlay()
 	//Look for the tank's aiming component directly and passes a component's instance to the BP event method
 	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
 		//Pointer protection
-		if (!AimingComponent)
+		if (!ensure(AimingComponent))
 		{
 			FoundAimingComponent(AimingComponent);
 		}
@@ -37,7 +37,7 @@ ATank* ATankPlayerController::GetControlledTank() const
 void ATankPlayerController::AimTowardsCrosshair()
 {
 	///Pointer protection
-	if (!GetControlledTank()) { return; }
+	if (!ensure(GetControlledTank())) { return; }
 
 	FVector HitLocation; //Out parameter
 
