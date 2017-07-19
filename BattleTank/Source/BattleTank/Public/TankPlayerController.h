@@ -7,6 +7,9 @@
 
 class ATank;
 
+/**
+* Responsible for helping the player aim
+*/
 UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
 {
@@ -42,4 +45,9 @@ protected:
 	//Returns the tank possesed by the PlayerController
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	ATank* GetControlledTank() const;
+
+	//Event which takes place when the aiming component is found
+	//"BlueprintImplementableEvent" doesn't require definition
+	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+	void FoundAimingComponent(UTankAimingComponent * AimCompRef);
 };
