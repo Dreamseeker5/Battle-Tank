@@ -5,7 +5,6 @@
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h" //Most be the last include
 
-class ATank;
 
 /**
 * Responsible for helping the player aim
@@ -16,10 +15,12 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	 
 public:
+
 	virtual void BeginPlay() override;
 	virtual void Tick(float) override;
 
 private:
+
 	UPROPERTY(EditDefaultsOnly)
 	float CrosshairXLocation = 0.5;
 
@@ -42,9 +43,6 @@ private:
 	bool GetLookVectorHitLocation(FVector, FVector&) const;
 
 protected:
-	//Returns the tank possesed by the PlayerController
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	ATank* GetControlledTank() const;
 
 	//Event which takes place when the aiming component is found
 	//"BlueprintImplementableEvent" doesn't require definition

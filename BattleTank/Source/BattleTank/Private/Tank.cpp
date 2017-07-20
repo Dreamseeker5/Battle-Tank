@@ -1,9 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BattleTank.h"
-#include "TankBarrel.h"
-#include "Projectile.h"
-#include "TankAimingComponent.h"
 #include "Tank.h"
 
 
@@ -14,44 +11,4 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 
 	//No need to protect pointers in the constructor
-}
-
-// Called when the game starts or when spawned
-void ATank::BeginPlay()
-{
-	Super::BeginPlay();
-	
-	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
-}
-
-
-
-void ATank::AimAt(FVector HitLocation)
-{
-	if (!ensure(TankAimingComponent)) { return; }
-	TankAimingComponent->AimingAt(HitLocation, LaunchSpeed);
-}
-
-void ATank::Fire()
-{
-	if (!ensure(Barrel)) { return; }
-
-	//A timer to make the tank able to shoot at a minimun rate
-	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-
-	//Fire a projectile from the barrel's socket location
-
-		//Pointer protection
-	if (isReloaded)
-	{
-		auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint,
-			Barrel->GetSocketLocation(FName("Projectile")),
-			Barrel->GetSocketRotation(FName("Projectile"))
-			);
-
-		Projectile->LaunchProjectile(LaunchSpeed);
-
-		//Update timer
-		LastFireTime = FPlatformTime::Seconds();
-	}
 }

@@ -3,6 +3,7 @@
 #include "BattleTank.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
+#include "Projectile.h"
 #include "TankAimingComponent.h"
 
 
@@ -16,7 +17,7 @@ UTankAimingComponent::UTankAimingComponent()
 
 
 
-void UTankAimingComponent::AimingAt(FVector HitLocation, float LaunchSpeed)
+void UTankAimingComponent::AimingAt(FVector HitLocation)
 {
 	if (!Barrel) { return;}
 
@@ -56,8 +57,29 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotation; 
 
-	//UE_LOG(LogTemp, Warning, TEXT("AimAsRotator: %s"), *AimAsRotator.ToString());
-
 	Barrel->Elevate(DeltaRotator.Pitch);
 	Turret->Rotate(DeltaRotator.Yaw);
+}
+
+void UTankAimingComponent::Fire()
+{
+	if (!ensure(Barrel && ProjectileBlueprint)) { return; }
+
+	//A timer to make the tank able to shoot at a minimun rate
+	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
+
+	//Fire a projectile from the barrel's socket location
+	if (isReloaded)
+	{
+		//Spawn a projectile at the socket location of the barrel
+		auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint,
+			Barrel->GetSocketLocation(FName("Projectile")),
+			Barrel->GetSocketRotation(FName("Projectile"))
+			);
+
+		Projectile->LaunchProjectile(LaunchSpeed);
+
+		//Update timer
+		LastFireTime = FPlatformTime::Seconds();
+	}
 }

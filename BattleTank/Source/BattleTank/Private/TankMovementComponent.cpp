@@ -22,8 +22,6 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 void UTankMovementComponent::IntendTurning(float Throw)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("Intend move forward throw: %f"), Throw);
-
 	//Pointer protection
 	if (!ensure(LeftTrack && RightTrack)) { return; }
 
@@ -45,6 +43,4 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 
 	IntendMoveForward(ForwardThrow);
 	IntendTurning(RotateThrow.Z);
-	
-	UE_LOG(LogTemp, Warning, TEXT("Forward: %f . Rotate: %f "), ForwardThrow, RotateThrow.Z);
 }
