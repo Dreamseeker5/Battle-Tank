@@ -20,20 +20,20 @@ void ATankAIController::Tick(float DeltaTime)
 
 	//Aims to the tank possesed by the PlayerController
 	if (!ensure(PlayerTank && ControlledTank)) { return; }
-	{
-		//Move the AI tanks towards the player
-		MoveToActor(PlayerTank, AcceptanceRadius);
+	
+	//Move the AI tanks towards the player
+	MoveToActor(PlayerTank, AcceptanceRadius);
 
-		auto AimingComponent = ControlledTank->FindComponentByClass<UTankAimingComponent>();
-		AimingComponent->AimingAt(PlayerTank->GetActorLocation());
+	auto AimingComponent = ControlledTank->FindComponentByClass<UTankAimingComponent>();
+	AimingComponent->AimingAt(PlayerTank->GetActorLocation());
 
 		
-		//Fire only if firing state is locked
-		if (AimingComponent->GetFiringState() == EFiringState::Locked)
-		{
+	//Fire only if firing state is locked
+	if (AimingComponent->GetFiringState() == EFiringState::Locked)
+	{
 			AimingComponent->Fire();
-		}
 	}
+	
 }
 
 
