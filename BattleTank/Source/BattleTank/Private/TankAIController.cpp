@@ -28,8 +28,11 @@ void ATankAIController::Tick(float DeltaTime)
 		AimingComponent->AimingAt(PlayerTank->GetActorLocation());
 
 		
-		//Fire at a uniform rate
-		AimingComponent->Fire();
+		//Fire only if firing state is locked
+		if (AimingComponent->GetFiringState() == EFiringState::Locked)
+		{
+			AimingComponent->Fire();
+		}
 	}
 }
 

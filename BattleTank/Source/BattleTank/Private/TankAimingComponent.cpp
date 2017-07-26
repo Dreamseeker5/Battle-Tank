@@ -69,17 +69,25 @@ void UTankAimingComponent::AimingAt(FVector HitLocation)
 	//If no solution do something
 }
 
-void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
+void UTankAimingComponent::MoveBarrelTowards(FVector AimDirect)
 {
 	//Pointer protection
 	if (!Barrel || !Turret) { return; }
 
 	auto BarrelRotation = Barrel->GetForwardVector().Rotation();
-	auto AimAsRotator = AimDirection.Rotation();
+	auto AimAsRotator = AimDirect.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotation; 
 
 	Barrel->Elevate(DeltaRotator.Pitch);
-	Turret->Rotate(DeltaRotator.Yaw);
+	//Rotate the shortest way
+	if(DeltaRotator.Yaw > 180)
+	{
+		Turret->Rotate(-DeltaRotator.Yaw);
+	}
+	else
+	{
+		Turret->Rotate(DeltaRotator.Yaw);
+	}
 }
 
 void UTankAimingComponent::Fire()
@@ -103,6 +111,11 @@ void UTankAimingComponent::Fire()
 		//Update timer
 		LastFireTime = FPlatformTime::Seconds();
 	}
+}
+
+EFiringState UTankAimingComponent::GetFiringState() const
+{
+	return FiringState;
 }
 
 bool UTankAimingComponent::IsBarrelMoving()

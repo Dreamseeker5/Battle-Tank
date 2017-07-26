@@ -33,6 +33,7 @@ public:
 
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
+
 	void AimingAt(FVector HitLocation);
 
 	//Called from tank class BP to set the barrel and turret meshes
@@ -41,6 +42,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
+
+	EFiringState GetFiringState() const;
 
 private:
 	
