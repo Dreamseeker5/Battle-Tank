@@ -11,19 +11,28 @@ AProjectile::AProjectile()
 	PrimaryActorTick.bCanEverTick = true;
 
 	//Setup the collision mesh
-	CollisionMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("Projectile"));
-	SetRootComponent(CollisionMesh);
-	CollisionMesh->SetNotifyRigidBodyCollision(true);
-	CollisionMesh->SetVisibility(false);
 
-	LaunchBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName(""));
-	LaunchBlast->AttachTo(RootComponent);
+		//Set the collision mesh as a default component
+		CollisionMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("Projectile"));
+		//Set the collision mesh as the root component
+		SetRootComponent(CollisionMesh);
+		//Activate as default the "Simulation Generates Hit Events" option in "Collision" category
+		CollisionMesh->SetNotifyRigidBodyCollision(true);
+		//Activate as default the "Visible" option in "Rendering" category
+		CollisionMesh->SetVisibility(false);
 
-	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Launch Blast"));
+	//Setup the particle system
 
+		//Set the collision mesh as a default component
+		LaunchBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Launch Blast"));
+		//Attach the particle system component to the root component (Collision mesh)
+		LaunchBlast->AttachTo(RootComponent);
 
-	//Make the projectile unable to move after construction
-	ProjectileMovement->bAutoActivate = false;
+	//Setup the projectile movement component
+		//Set the collision mesh as a default component
+		ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Movement"));
+		//Make the projectile unable to move after construction
+		ProjectileMovement->bAutoActivate = false;
 }
 
 // Called when the game starts or when spawned
