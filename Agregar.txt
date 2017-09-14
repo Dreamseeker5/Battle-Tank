@@ -1,0 +1,5 @@
+Add to Tank Game
+
+* Recibir una cantidad gradual de daño según el radio de impacto.
+* Mostrar un mensaje una vez el tanque del jugador es destruido.
+* Desencadenar un efecto de partículas cuando el tanque es destruido y eliminar el tanque.
